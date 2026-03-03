@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+
+  /*  Brand Colors  */
+
+  --color-primary: #C73B0F;
+
+  --color-rose-900: #260F08;
+  --color-rose-500: #87635A;
+  --color-rose-400: #AD8A85;
+  --color-rose-300: #CAAFA7;
+  --color-rose-100: #F5EEEC;
+  --color-rose-50:  #FCF8F6;
+
+  --color-green: #1EA575;
+
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+
+  /*  Border Radius  */
+
+  --radius-card: 8px;      /* Product images */
+  --radius-panel: 12px;    /* Cart & Modal */
+  --radius-pill: 999px;    /* Buttons */
+
+  /*  Typography Scale  */
+
+  --text-hero: 40px;
+  --text-h2: 24px;
+  --text-body: 16px;
+  --text-small: 14px;
+
+  /*  Line Heights  */
+
+  --leading-default: 19px;
+  --leading-product-name: 21px;
+  --leading-cart-title: 32px;
+  --leading-confirm-title: 48px;
+  --leading-subtitle: 21px;
+  --leading-total-price: 32px;
+
+  /*  Layout  */
+
+  --container-max: 1440px;
+
+}
+
+html {
+  font-family: "Red Hat Text", sans-serif;
+  background-color: var(--color-rose-50);
+}
+
+body {
+  color: var(--color-rose-900);
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  padding: 0;
+  margin: 0;
+}
+
+/* Dark mode */
+.dark {
+  --color-background: #1A0E0A;
+  --color-text: #F5EEEC;
+
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+/* Typography Utilities */
+.text-default {
+  font-size: var(--text-body);
+  line-height: var(--leading-default);
+}
+
+.text-small {
+  font-size: var(--text-small);
+  line-height: var(--leading-default);
+}
+
+.text-product-name {
+  font-size: var(--text-body);
+  font-weight: 600;
+  line-height: var(--leading-product-name);
+}
+
+.text-cart-title {
+  font-size: var(--text-h2);
+  font-weight: 700;
+  line-height: var(--leading-cart-title);
+  color: var(--color-primary);
+}
+
+.text-confirm-title {
+  font-size: var(--text-hero);
+  font-weight: 700;
+  line-height: var(--leading-confirm-title);
+}
+
+.text-subtitle {
+  font-size: var(--text-body);
+  line-height: var(--leading-subtitle);
+}
+
+.text-total-price {
+  font-size: var(--text-h2);
+  font-weight: 700;
+  line-height: var(--leading-total-price);
+}
