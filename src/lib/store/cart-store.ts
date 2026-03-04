@@ -1,18 +1,13 @@
-import { create } from "zustand"
-import { persist } from "zustand/middleware"
-
-export interface CartItem {
-    id: string
-    name: string
-    price: number
-    quantity: number
-}
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { CartItem } from "@/types/cart";
+import type { Product } from "@/types/product";
 
 export interface CartState {
     items: CartItem[]
     // Grouping actions in a single stable object prevents rerenders when state changes
     actions: {
-        addItem: (item: Omit<CartItem, "quantity">) => void
+        addItem: (product: Product, quantity: number) => void
         removeItem: (id: string) => void
         increaseQuantity: (id: string) => void
         decreaseQuantity: (id: string) => void
@@ -25,18 +20,27 @@ export const useCartStore = create<CartState>()(
         (set) => ({
             items: [],
             actions: {
-                addItem: (newItem) =>
+                addItem: (product) =>
                     set((state) => {
-                        const existingIndex = state.items.findIndex((i) => i.id === newItem.id)
-                        if (existingIndex > -1) {
-                            const newItems = [...state.items]
-                            newItems[existingIndex] = {
-                                ...newItems[existingIndex],
-                                quantity: newItems[existingIndex].quantity + 1
+                        const existing = state.items.find((i) => i.id === product.id)
+                        if (existing) {
+                            return {
+                                items: state.items.map((i) =>
+                                    i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i
+                                ),
                             }
-                            return { items: newItems }
                         }
-                        return { items: [...state.items, { ...newItem, quantity: 1 }] }
+                        return {
+                            items: [
+                                ...state.items,
+                                {
+                                    id: product.id,
+                                    name: product.name,
+                                    price: product.price,
+                                    quantity: 1
+                                }
+                            ]
+                        }
                     }),
 
                 removeItem: (id) =>
