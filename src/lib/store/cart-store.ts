@@ -77,7 +77,11 @@ export const useCartStore = create<CartState>()(
  * SELECTORS: Export individual hooks to prevent full-store subscriptions.
  * Components using only 'actions' will never rerender when 'items' change.
  */
-export const useCartItems = () => useCartStore((state) => state.items)
+// Define a generic selector type for the 'items' slice
+export const useCartItems = <T>(
+    selector: (items: CartItem[]) => T = (items) => items as unknown as T
+) => useCartStore((state) => selector(state.items));
+
 export const useCartActions = () => useCartStore((state) => state.actions)
 
 // Computed selector: Derived state should be calculated via a selector for efficiency
@@ -85,3 +89,8 @@ export const useCartTotal = () =>
     useCartStore((state) =>
         state.items.reduce((acc, item) => acc + item.price * item.quantity, 0)
     )
+
+// Additional selector for total units
+export const selectTotalUnits = (state: CartState) => 
+    state.items.reduce((acc, item) => acc + item.quantity, 0);
+

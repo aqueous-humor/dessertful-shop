@@ -44,6 +44,18 @@
 
   --container-max: 1440px;
 
+  /* Breakpoints */
+  --breakpoint-mobile: 375px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1440px;
+
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6, p {
+  padding: 0;
+  margin: 0;
+}
 }
 
 html {
@@ -53,11 +65,6 @@ html {
 
 body {
   color: var(--color-rose-900);
-}
-
-h1, h2, h3, h4, h5, h6, p {
-  padding: 0;
-  margin: 0;
 }
 
 /* Dark mode */
@@ -108,4 +115,8 @@ h1, h2, h3, h4, h5, h6, p {
   font-size: var(--text-h2);
   font-weight: 700;
   line-height: var(--leading-total-price);
+}
+
+@utility bg-primary-overlay {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), var(--color-primary);
 }
