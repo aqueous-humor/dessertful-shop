@@ -1,11 +1,14 @@
 "use client"
 
+import { Fragment, useState } from "react";
 import { useStore } from "@/lib/hooks/use-cart";
 import { useCartStore, type CartState } from "@/lib/store/cart-store";
 import CartItem from "./CartItem";
 import CartTotal from "./CartTotal";
+import OrderModal from "../order/OrderModal";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
+import { useUIStore } from "@/lib/store/ui-store";
 
 export default function Cart() {
     const cartItems = useStore<CartState, CartState['items']>(
@@ -17,6 +20,14 @@ export default function Cart() {
         useCartStore,
         (state) => state.items.reduce((acc, item) => acc + item.quantity, 0)
     ) ?? 0;
+
+    const openModal = useUIStore((state) => state.openOrderModal)
+
+    // const [showOrderModal, setShowOrderModal] = useState(false);
+
+    // const isOpen = useUIStore((state) => state.isOrderModalOpen)
+    // const close = useUIStore((state) => state.closeOrderModal)
+    // const openOrderModal = useUIStore((state) => state.openOrderModal);
 
     return (
         <aside className="bg-white rounded-card p-[6.25%] flex flex-col gap-6">
@@ -41,10 +52,10 @@ export default function Cart() {
                 <>
                     <div className="flex flex-col gap-4 ">
                         {cartItems.map((item, index) => (
-                            <>
-                                <CartItem key={item.id} item={item} />
+                            <Fragment key={item.id}>
+                                <CartItem item={item}  />
                                 {index !== cartItems.length - 1 && <div className="border-t border-rose-100" />}
-                            </>
+                            </Fragment>
 
                         ))}
                     </div>
@@ -59,13 +70,17 @@ export default function Cart() {
                     </div>
 
                     <button
+                        onClick={openModal}
                         className="w-full rounded-pill bg-primary py-4 text-white font-semibold hover:cursor-pointer hover:bg-primary-overlay transition-colors "
                     >
                         Confirm Order
                     </button>
                 </>
             )}
-
+            {/* {showOrderModal && (
+                // <OrderModal onClose={close} />
+                <OrderModal onClose={() => setShowOrderModal(false)} />
+            )} */}
         </aside>
     )
 }
