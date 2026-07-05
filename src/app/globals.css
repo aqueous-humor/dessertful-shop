@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --font-family-sans: "Red Hat Text", sans-serif;
 
   /*  Brand Colors  */
 
@@ -75,6 +76,32 @@ body {
   background-color: var(--color-background);
   color: var(--color-text);
 }
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(3deg); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(-2deg); }
+}
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
+.animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
+.animate-shimmer { animation: shimmer 2s linear infinite; background-size: 200% 100%; }
+
+/* Font utility classes (powered by next/font) */
+.font-serif { font-family: var(--font-playfair), serif; }
+.font-script { font-family: var(--font-dancing-script), cursive; }
 
 /* Typography Utilities */
 .text-default {
